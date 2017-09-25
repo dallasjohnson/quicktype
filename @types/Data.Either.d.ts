@@ -3,5 +3,5 @@ declare module "Data.Either" {
 
   export function isRight<T, U>(either: Either<T, U>): boolean;
   export function isLeft<T, U>(either: Either<T, U>): boolean;
-  export function fromRight<T>(either: Either<string, T>): T;
+  export function fromRight<T, U>(partial: any): (either: Either<T, U>) => U;
 }

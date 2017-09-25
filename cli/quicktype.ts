@@ -5,6 +5,9 @@ import * as process from "process";
 import * as Either from "Data.Either";
 import * as Maybe from "Data.Maybe";
 
+// These are simplified, uncurried versions of Either.fromRight, etc.
+import { fromRight, fromJust } from "./purescript";
+
 import * as _ from "lodash";
 
 import * as Main from "Main";
@@ -223,14 +226,13 @@ class Run {
       console.error(`'${lang}' is not yet supported as an output language.`);
       process.exit(1);
     }
-    return Maybe.fromJust(maybe);
+    return fromJust(maybe);
   };
 
   renderSamplesOrSchemas = (
     samplesOrSchemas: SampleOrSchemaMap
   ): SourceCode => {
     let areSchemas = this.options.srcLang === "schema";
-
     let config: Config = {
       language: this.getRenderer(this.options.lang).names[0],
       topLevels: Object.getOwnPropertyNames(samplesOrSchemas).map(name => {
@@ -245,7 +247,7 @@ class Run {
       rendererOptions: this.options.rendererOptions
     };
 
-    return Either.fromRight(Main.main(config));
+    return fromRight(Main.main(config));
   };
 
   splitAndWriteJava = (dir: string, str: string) => {
@@ -381,7 +383,7 @@ class Run {
       usage();
     } else if (this.options.srcUrls) {
       let json = JSON.parse(fs.readFileSync(this.options.srcUrls, "utf8"));
-      let jsonMap = Either.fromRight(Main.urlsFromJsonGrammar(json));
+      let jsonMap = fromRight(Main.urlsFromJsonGrammar(json));
       this.renderAndOutput(
         await this.mapValues(jsonMap, this.parseFileOrUrlArray)
       );

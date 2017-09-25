@@ -2,7 +2,13 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["es2015"],
-    "outDir": "../output",
-    "typeRoots": ["../node_modules/@types"]
-  }
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "allowJs": false,
+    "typeRoots": ["../node_modules/@types"],
+    "paths": {
+      "*": ["../dist/*"]
+    }
+  },
+  "include": ["*.ts", "../@types/*.d.ts"]
 }

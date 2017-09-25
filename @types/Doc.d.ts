@@ -1,4 +1,6 @@
 declare module "Doc" {
+  import { OptionSpecification } from "Options";
+
   export interface Renderer {
     displayName: string;
     names: [string];
