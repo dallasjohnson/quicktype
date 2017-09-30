@@ -3,7 +3,6 @@
   "version": "0.10.8",
   "license": "Apache-2.0",
   "repository": "https://github.com/quicktype/quicktype",
-  "types": "types.d.ts",
   "scripts": {
     "pub": "script/publish.sh",
     "prepare": "npm run build",
