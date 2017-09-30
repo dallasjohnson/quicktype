@@ -10,7 +10,7 @@ pulp build --build-path $OUTDIR -- --source-maps --stash --censor-warnings
 for typeFile in @types/*.d.ts; do
     filename=$(basename $typeFile)
     module="${filename%%.d.ts}"
-    ln -f $typeFile $OUTDIR/$module/
+    ln -f $typeFile $OUTDIR/$module/index.d.ts
 done
 
 tsc --project cli/tsconfig.json
@@ -28,13 +28,16 @@ for typeFile in @types/*.d.ts; do
     for script in cli/*.js; do
         sed -i -e "s/require(\"$module\")/require(\"\.\/$module\")/g" $script
     done
+    for script in cli/*.d.ts; do
+        sed -i -e "s/from \"$module\"/from \"\.\/$module\"/g" $script
+    done
 done
 
 # Distribute README, TypeScript, etc.
 rm -f cli/*-e # remove artifacts from sed(?)
-cp cli/* $OUTDIR/
+cp cli/*.js cli/*.d.ts $OUTDIR/
 
 (echo "#!/usr/bin/env node"; cat cli/quicktype.js) > $OUTDIR/quicktype.js
 chmod +x $OUTDIR/quicktype.js
 
-rm -f cli/*.js
+rm -f cli/*.js cli/*.d.ts

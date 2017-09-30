@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "module": "commonjs",
     "lib": ["es2015"],
-    "moduleResolution": "node",
     "baseUrl": ".",
     "allowJs": false,
+    "declaration": true,
     "typeRoots": ["../node_modules/@types"],
     "paths": {
       "*": ["../dist/*"]
     }
-  },
-  "include": ["*.ts", "../@types/*.d.ts"]
+  }
 }
