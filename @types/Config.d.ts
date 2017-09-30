@@ -9,6 +9,7 @@ declare module "Config" {
   export interface Config {
     language: string;
     topLevels: TopLevelConfig[];
+    inferMaps?: boolean;
     rendererOptions?: { [name: string]: string };
   }
 }
